@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jose.api.models.Servicios;
@@ -102,6 +103,15 @@ public class GreetingController {
 		}*/
 		mapeo.put("service", servicesRepository.save(newService));
 		mapeo.put("at",new Date());
+		return mapeo;
+	}
+	@PostMapping("/insertService2")
+	public HashMap<String, Object> insertService2(@RequestBody Servicios newService) {
+		HashMap<String, Object> mapeo= new HashMap<>();
+		newService.setFecha(new Date());
+		mapeo.put("service", servicesRepository.save(newService));
+		mapeo.put("at",new Date());
+		System.out.println("insertService2 "+ newService.toString());
 		return mapeo;
 	}
 	@GetMapping("/error")
