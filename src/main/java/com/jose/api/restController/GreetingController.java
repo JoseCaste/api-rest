@@ -144,7 +144,6 @@ public class GreetingController {
 				servicioInsert.setPrecio((int)servicio.get("precio"));
 				servicioInsert.setServicio((String)servicio.get("servicio"));
 				servicioInsert.setNumTel((String)servicio.get("numTel"));
-		//		servicioInsert.setData(file.getBytes());
 				servicioInsert.setFecha(new Date());
 				mapa.put("at",new Date()); 
 				Servicios serv=servicesRepository.save(servicioInsert);
