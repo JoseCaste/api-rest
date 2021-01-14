@@ -18,8 +18,8 @@ public class LoadDataBase {
 	@Bean
 	CommandLineRunner initDataBase(ServicesRepository repository) {
 		return args->{
-			log.info("Preoloadind "+repository.save(new Servicios("zamba", "jose", "baño", "s/c", "9711533508", 123.2, new Date())));
-			log.info("Preoloading "+repository.save(new Servicios("med", "jose", "baño", "s/c", "9711533508", 143.2, new Date())));
+			log.info("Preoloadind "+repository.save(new Servicios("zamba", "jose", "baño", "s/c", "9711533508", 123, new Date())));
+			log.info("Preoloading "+repository.save(new Servicios("med", "jose", "baño", "s/c", "9711533508", 143, new Date())));
 		};
 	}
 }

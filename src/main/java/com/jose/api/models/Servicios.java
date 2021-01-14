@@ -1,11 +1,11 @@
 package com.jose.api.models;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 @Entity
 public class Servicios {
 	@Id
@@ -16,20 +16,18 @@ public class Servicios {
 	private String servicio;
 	private String comentarios;
 	private String numTel;
-	private double precio;
+	private int precio;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fecha;
-	
-	private byte []data;
-	
-	
+	private Date fecha;	
+	@Column(length = 1000000)
+	private byte[] data;	
 	
 	public Servicios() {
 		
 	}
 	
 	public Servicios(String nombrePerro, String responsable, String servicio, String comentarios, String numTel,
-			double precio, Date date) {
+			int precio, Date date) {
 		this.nombrePerro = nombrePerro;
 		this.responsable = responsable;
 		this.servicio = servicio;
@@ -40,7 +38,7 @@ public class Servicios {
 	}
 
 	public Servicios(int id, String nombrePerro, String responsable, String servicio, String comentarios, String numTel,
-			double precio, Date fecha) {
+			int precio, Date fecha) {
 		this.id = id;
 		this.nombrePerro = nombrePerro;
 		this.responsable = responsable;
@@ -51,7 +49,7 @@ public class Servicios {
 		this.fecha = fecha;
 	}
 	public Servicios(int id, String nombrePerro, String responsable, String servicio, String comentarios, String numTel,
-			double precio, Date fecha, byte[]data) {
+			int precio, Date fecha, byte[]data) {
 		this.id = id;
 		this.nombrePerro = nombrePerro;
 		this.responsable = responsable;
@@ -98,10 +96,10 @@ public class Servicios {
 	public void setNumTel(String numTel) {
 		this.numTel = numTel;
 	}
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 	public Date getFecha() {
@@ -118,12 +116,12 @@ public class Servicios {
 	public void setData(byte[] data) {
 		this.data = data;
 	}
-
 	@Override
 	public String toString() {
 		return "Servicio [id=" + id + ", nombrePerro=" + nombrePerro + ", responsable=" + responsable + ", servicio="
 				+ servicio + ", comentarios=" + comentarios + ", numTel=" + numTel + ", precio=" + precio + ", fecha="
-				+ fecha + "]";
+				+ fecha
+				+ data +"]";
 	}
 	
 	
