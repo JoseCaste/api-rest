@@ -158,21 +158,6 @@ public class GreetingController {
 				mapa.put("data", serv.getData());
 		return mapa;
 	}
-	@PostMapping("/insertService2")
-	public HashMap<String, Object> insertService2(@RequestBody Servicios newService) {
-		HashMap<String, Object> mapeo= new HashMap<>();
-		newService.setFecha(new Date());
-		/*try {
-			//newService.setData(compressBytes(file.getBytes()));
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		mapeo.put("service", servicesRepository.save(newService));
-		mapeo.put("at",new Date());
-		return mapeo;
-	}
 	@GetMapping("/error")
 	public String error() {
 		return "somethig went wrong!!!";
