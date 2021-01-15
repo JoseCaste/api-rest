@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jose.api.models.Servicios;
 import com.jose.api.repositories.ServicesRepository;
@@ -104,6 +106,57 @@ public class GreetingController {
 		mapeo.put("service", servicesRepository.save(newService));
 		mapeo.put("at",new Date());
 		return mapeo;
+	}
+
+	@PostMapping("insertImageService/{id}")
+	public HashMap<String,Object> insertImageService 
+	(@PathVariable("id") long id,@RequestParam("picture") MultipartFile file) {
+		HashMap<String, Object> mapa= new HashMap<>();
+		try {
+			System.out.println("id recibido "+id);
+			Optional<Servicios> service=servicesRepository.findById(id);
+			service.get().setData(file.getBytes());
+			Servicios service2=servicesRepository.save(service.get());
+			mapa.put("service",service2);
+			mapa.put("at", new Date());
+			mapa.put("data",service2.getData());
+			System.out.println(service2.toString());
+			return mapa;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			mapa.put("service", "Got a problem");
+			mapa.put("at", new Date());
+			return mapa;
+		}
+		
+		
+		
+	}
+	@GetMapping("img/{id}")
+	public byte[] get(@PathVariable long id) {
+		Optional<Servicios> servi= servicesRepository.findById(id);
+		System.out.println("--> "+servi.get().getData());
+		return servi.get().getData();
+	}
+	@PostMapping("/insertService2")
+	public HashMap<String, Object> insertService2(@RequestBody HashMap<String, Object> servicio) {
+		HashMap<String, Object> mapa= new HashMap<>();
+				System.out.println("SErvice "+servicio.toString());
+				System.out.println("Object: "+servicio.get("nombrePerro"));
+				Servicios servicioInsert= new Servicios();
+				servicioInsert.setNombrePerro((String)servicio.get("nombrePerro"));
+				servicioInsert.setResponsable((String)servicio.get("responsable"));
+				servicioInsert.setComentarios((String)servicio.get("comentarios"));
+				servicioInsert.setPrecio((int)servicio.get("precio"));
+				servicioInsert.setServicio((String)servicio.get("servicio"));
+				servicioInsert.setNumTel((String)servicio.get("numTel"));
+				servicioInsert.setFecha(new Date());
+				mapa.put("at",new Date()); 
+				Servicios serv=servicesRepository.save(servicioInsert);
+				mapa.put("service",serv);
+				mapa.put("data", serv.getData());
+		return mapa;
 	}
 	@PostMapping("/insertService2")
 	public HashMap<String, Object> insertService2(@RequestBody Servicios newService) {
